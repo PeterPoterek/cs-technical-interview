@@ -28,3 +28,16 @@ const employee = [
     ],
   },
 ];
+
+const getEmployeeInfo = (employee, keyName) => {
+  employee.forEach((element) => {
+    if (element.hasOwnProperty(keyName)) {
+      console.log(`${keyName} - key exists`);
+      return keyName;
+    }
+  });
+};
+
+// console.log(getEmployeeInfo(employee, "firstName"));
+console.log(getEmployeeInfo(employee, "employmentDetails"));
+console.log(getEmployeeInfo(employee, "personalInfo"));
