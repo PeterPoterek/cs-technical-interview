@@ -31,15 +31,27 @@ const employee = [
 
 const getEmployeeInfo = (employee, keyName) => {
   for (const element of employee) {
-    if (element.hasOwnProperty(keyName)) {
-      return element[keyName];
-    } else {
-      const result = getEmployeeInfo(Object.values(element), keyName);
-      return result;
+    if (typeof element === "object" && element !== null) {
+      if (element.hasOwnProperty(keyName)) {
+        return element[keyName];
+      }
+      const values = Object.values(element);
+
+      for (const value of values) {
+        if (Array.isArray(value) || typeof value === "object") {
+          const result = getEmployeeInfo([value], keyName);
+          if (result !== "Klucz nie istnieje") {
+            return result;
+          }
+        }
+      }
     }
   }
+  return "Klucz nie istnieje";
 };
 
 console.log(getEmployeeInfo(employee, "firstName"));
-// console.log(getEmployeeInfo(employee, "employmentDetails"));
-// console.log(getEmployeeInfo(employee, "personalInfo"));
+console.log(getEmployeeInfo(employee, "lastName"));
+console.log(getEmployeeInfo(employee, "personalInfo"));
+console.log(getEmployeeInfo(employee, "position"));
+console.log(getEmployeeInfo(employee, "street"));
