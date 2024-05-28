@@ -33,10 +33,13 @@ const getEmployeeInfo = (employee, keyName) => {
   for (const element of employee) {
     if (element.hasOwnProperty(keyName)) {
       return element[keyName];
+    } else {
+      const result = getEmployeeInfo(Object.values(element), keyName);
+      return result;
     }
   }
 };
 
 console.log(getEmployeeInfo(employee, "firstName"));
-console.log(getEmployeeInfo(employee, "employmentDetails"));
-console.log(getEmployeeInfo(employee, "personalInfo"));
+// console.log(getEmployeeInfo(employee, "employmentDetails"));
+// console.log(getEmployeeInfo(employee, "personalInfo"));
